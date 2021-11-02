@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fetch Planets!!!!</title>
+    <script>
+        window.addEventListener("load", function () {
+            // TODO: fetch planets JSON
+            // url: "https://handlers.education.launchcode.org/static/planets.json"
+            // fetch the data from this url and take the json and use it to
+            // display information about our destination
+            // this fetch is going to GET the array of planet json data from the url
+            // but we need to wait to make sure the request goes through and then
+            // unpack the json
+
+            fetch("https://handlers.education.launchcode.org/static/planets.json").then(function (response) {
+                // console.log(response);
+                response.json().then(function (json) {
+                    // the json is finally unpacked here and so now we finally have
+                    // access to it
+                    // console.log(json[0].name);
+                    let index = 0;
+                    const destination = document.getElementById("destination");
+                    destination.addEventListener("click", function () {
+                        destination.innerHTML = `
+                            <div>
+                                <h3>Planet ${json[index].name}</h3>
+                                <img src=${json[index].image} height=250></img>
+                            </div>
+                        `;
+                        console.log(index)
+                        index += 1;
+                        if (index === json.length) {
+                            index = 0;
+                        }
+                        // modulo book solution
+                        // index = (index + 1) % json.length;
+                        // console.log(index % json.length)
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Destination</h1>
+    <div id="destination">
+        <h3>Planet</h3>
+    </div>
+</body>
+
+</html>
